@@ -1,0 +1,173 @@
+﻿@model NHTBrandShop.Areas.Admin.Models.ProductsActionModel
+
+@if (Model != null)
+{
+    <div class="modal-content">
+        <div class="modal-header">
+            <h5 class="modal-title">
+                @if (Model.ProductID > 0)
+                {
+                    <span> Edit Product</span>
+                }
+                else
+                {
+                    <span> Create Product</span>
+                }
+            </h5>
+            <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                <span aria-hidden="true">&times;</span>
+            </button>
+        </div>
+        <div class="modal-body">
+            <form id="actionForm">
+                <input type="hidden" name="ProductID" value="@Model.ProductID" />
+                <div class="form-group">
+                    <label>Main Menu Name</label>
+                    <select class="form-control" id="MainMenuID" name="MainMenuID">
+                        <option value="">--</option>
+                        @if (Model.MainMenus != null)
+                        {
+                            foreach (var mainMenu in Model.MainMenus)
+                            {
+                                <option value="@mainMenu.MainMenuID" @(mainMenu.MainMenuID == Model.MainMenuID ? "selected" : string.Empty)>
+                                    @mainMenu.MainMenuName
+                                </option>
+                            }
+                        }
+                    </select>
+                </div>
+                <div class="form-group">
+                    <label>Sub Menu Name</label>
+                    <select class="form-control" id="SubMenuID" name="SubMenuID">
+                        <option value="0">--</option>
+                        @if (Model.SubMenus != null)
+                        {
+                            foreach (var subMenu in Model.SubMenus)
+                            {
+                                <option value="@subMenu.SubMenuID" @(subMenu.SubMenuID == Model.SubMenuID ? "selected" : string.Empty)>
+                                    @subMenu.SubMenuName
+                                </option>
+                            }
+                        }
+                    </select>
+                </div>
+                <div class="form-group">
+                    <label>Supplier Name</label>
+                    <select class="form-control" name="SupplierID">
+                        <option id="SupplierID" value="value">--</option>
+                        @if (Model.Suppliers != null)
+                        {
+                            foreach (var supplier in Model.Suppliers)
+                            {
+                                <option id="SubMenuID" value="@supplier.SupplierID" @(supplier.SupplierID == Model.SupplierID ? "selected" : string.Empty)>
+                                    @supplier.SupplierName
+                                </option>
+                            }
+                        }
+                    </select>
+                </div>
+
+                <div class="form-group">
+                    <label>Tag</label>
+                    <select class="form-control" name="TagID">
+                        <option id="TagID" value="value">--</option>
+                        @if (Model.Tags != null)
+                        {
+                            foreach (var tag in Model.Tags)
+                            {
+                                <option id="TagID" value="@tag.TagID" @(tag.TagID == Model.TagID ? "selected" : string.Empty)>
+                                    @tag.TagTitle
+                                </option>
+                            }
+                        }
+                    </select>
+                </div>
+
+                <div class="form-group">
+                    <label>Product Name</label>
+                    <input class="form-control" name="ProductName" placeholder="Enter Product Name" value="@Model.ProductName" required>
+                </div>
+                <div class="form-group">
+                    <label>Product Code</label>
+                    <input class="form-control" name="ProductCode" placeholder="Enter Product Code" value="@Model.ProductCode" required>
+                </div>
+                <div class="form-group">
+                    <label>Buying Price</label>
+                    <input class="form-control" name="BuyingPrice" placeholder="Enter Buying Price" value="@Model.BuyingPrice" required>
+                </div>
+                <div class="form-group">
+                    <label>Regular Price</label>
+                    <input class="form-control" name="RegularPrice" placeholder="Enter Regular Price" value="@Model.RegularPrice" required>
+                </div>
+                <div class="form-group">
+                    <label>Discount Price</label>
+                    <input class="form-control" name="DiscountPrice" placeholder="Enter Discount Price" value="@Model.DiscountPrice" required>
+                </div>
+                <div class="form-group">
+                    <label>Product Quantity</label>
+                    <input class="form-control" name="ProductQuantity" placeholder="Enter Product Quantity" value="@Model.ProductQuantity" required>
+                </div>
+                <div class="form-group">
+                    <label>Product Colors</label>
+                    <input class="form-control" name="Color" placeholder="Enter Available Product Colors" value="@Model.Color" required>
+                </div>
+                <div class="form-group">
+                    <label>Product's Configurations</label>
+                    <input class="form-control" name="Config" placeholder="Enter Available Product's Configurations" value="@Model.Config" required>
+                </div>
+                <div class="form-group">
+                    <label>Description</label>
+                    <textarea class="form-control" name="Description" placeholder="Enter Sub Product Description">@Model.Description</textarea>
+                </div>
+                <div class="form-group">
+                    <label>Availability</label>
+                    <input type="checkbox" class="form-control" name="ProductStatus" value="@Model.ProductStatus" required>
+                </div>
+
+            </form>
+
+            <div class="errorDiv">
+
+            </div>
+
+        </div>
+        <div class="modal-footer">
+            <button id="actionButton" type="button" class="btn btn-primary"><i class="fa fa-save fa-xs">   Save</i></button>
+            <button type="button" class="btn btn-dark" data-dismiss="modal"><i class="fa fa-close fa-xs">   Close</i></button>
+        </div>
+    </div>
+
+}
+
+    <script>
+        $(document).ready(function () {
+            $("#MainMenuID").change(function () {
+                $.get("/Product/GetSubMenuByMainMenu", { MainMenuID: $("#MainMenuID").val() }, function (data) {
+                    $("#SubMenuID").empty();
+                    $.each(data, function (index, row) {
+                        $("#SubMenuID").append("<option value='" + row.SubMenuID + "'>" + row.SubMenuName + "</option>")
+                    });
+                });
+            })
+        });
+    </script>
+
+<script>
+    $("#actionButton").click(function() {
+        $.ajax({
+            url: '@Url.Action("AddAndEdit", "Product")',
+            type: 'post',
+            data: $("#actionForm").serialize(),
+        })
+        .done(function (response) {
+            if (response.Success)
+            {
+                location.reload();
+            }
+            else
+            {
+                $(".errorDiv").html(response.Message);
+            }
+        });
+    });
+</script>

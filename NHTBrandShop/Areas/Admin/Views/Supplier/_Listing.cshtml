@@ -1,0 +1,48 @@
+﻿@model NHTBrandShop.Areas.Admin.Models.SupplierListingModel
+
+@if (Model != null && Model.Suppliers != null && Model.Suppliers.Count() > 0)
+{
+<table id="listtable" class="table table-hover" style="width:100%">
+    <thead class="thead-secondary">
+        <tr>
+            <th scope="col">Name</th>
+            <th scope="col">Updated At</th>
+            <th scope="col">Actions</th>
+        </tr>
+    </thead>
+    <tbody>
+        @foreach (var supplier in Model.Suppliers)
+        {
+            <tr>
+                <td>
+                    @supplier.SupplierName
+                </td>
+                <td>
+                    @supplier.UpdatedAt
+                </td>
+                <td>
+                    <div class="btn-group btn-group-toggle" data-toggle="buttons">
+                        <button data-href="@Url.Action("AddAndEdit", "Supplier", new { ID = supplier.SupplierID})"
+                                type="button" class="data-btn btn btn-dark" data-toggle="modal"
+                                data-target="#actionModal">
+                            <i class="fa fa-edit fa-xs">   Edit</i>
+                        </button>
+
+                        <button data-href="@Url.Action("Delete", "Supplier", new { ID = supplier.SupplierID})"
+                                type="button" class="data-btn btn btn-danger" data-toggle="modal"
+                                data-target="#actionModal">
+                            <i class="fa fa-trash fa-xs">   Delete</i>
+                        </button>
+                    </div>
+                </td>
+            </tr>
+        }
+    </tbody>
+</table>
+}
+else
+{
+<div class="alert alert-warning" role="alert">
+    Sorry! No @ViewBag.Title Listed.
+</div>
+}

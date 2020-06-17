@@ -1,0 +1,99 @@
+﻿@model NHTBrandShop.Areas.Admin.Models.ProductsListingModel
+
+@if (Model != null && Model.Products != null && Model.Products.Count() > 0)
+{
+    <table id="listtable" class="table table-hover" style="width:100%">
+        <thead class="thead-secondary">
+            <tr>
+                <th scope="col">Product Name</th>
+                <th scope="col">Main Menu</th>
+                <th scope="col">Sub Menu</th>
+                @*<th scope="col">Supplier</th>*@
+                <th scope="col">Product Code</th>
+                @*<th scope="col">Buying Price</th>
+                <th scope="col">Regular Price</th>
+                <th scope="col">Discount Quantity</th>*@
+                @*<th scope="col">Product Status</th>*@
+                @*<th scope="col">Product Quantity</th>*@
+                <th scope="col">Updated At</th>
+                <th scope="col">Actions</th>
+            </tr>
+        </thead>
+        <tbody>
+            @foreach (var product in Model.Products)
+            {
+            <tr>
+                <td>
+                    @product.ProductName
+                </td>
+                <td>
+                    @if (product.MainMenu != null)
+                    {
+                        @product.MainMenu.MainMenuName
+                    }
+                </td>
+                <td>
+                    @if (product.SubMenu != null)
+                    {
+                        @product.SubMenu.SubMenuName
+                    }
+                </td>
+                @*<td>
+                    @if (product.Suppliers != null)
+                    {
+                        @product.Suppliers.SupplierName
+                    }
+                </td>*@
+                <td>
+                    @product.ProductCode
+                </td>
+                @*<td>
+                    @product.BuyingPrice
+                </td>
+                <td>
+                    @product.RegularPrice
+                </td>
+                <td>
+                    @product.DiscountPrice
+                </td>
+                <td>
+                    @product.ProductQuantity
+                </td>
+                <td>
+                    @product.ProductStatus
+                </td>*@
+                <td>
+                    @product.UpdatedAt
+                </td>
+                <td>
+                    <div class="btn-group btn-group-toggle" data-toggle="buttons">
+                        <button data-href="@Url.Action("Details", "Product", new { ID = product.ProductID})"
+                                type="button" class="data-btn btn btn-warning" data-toggle="modal"
+                                data-target="#actionModal">
+                            <i class="fa fa-info-circle fa-xs"></i>
+                        </button>
+
+                        <button data-href="@Url.Action("AddAndEdit", "Product", new { ID = product.ProductID})"
+                                type="button" class="data-btn btn btn-dark" data-toggle="modal"
+                                data-target="#actionModal">
+                            <i class="fa fa-edit fa-xs"></i>
+                        </button>
+
+                        <button data-href="@Url.Action("Delete", "Product", new { ID = product.ProductID})"
+                                type="button" class="data-btn btn btn-danger" data-toggle="modal"
+                                data-target="#actionModal">
+                            <i class="fa fa-trash fa-xs"></i>
+                        </button>
+                    </div>
+                </td>
+            </tr>
+            }
+        </tbody>
+    </table>
+}
+else
+{
+    <div class="alert alert-warning" role="alert">
+        Sorry! No @ViewBag.Title Listed.
+    </div>
+}

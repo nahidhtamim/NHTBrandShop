@@ -1,0 +1,67 @@
+﻿@model NHTBrandShop.Areas.Admin.Models.MainMenuActionModel
+
+@if (Model != null)
+{
+    <div class="modal-content">
+        <div class="modal-header">
+            <h5 class="modal-title">
+                @if (Model.MainMenuID > 0)
+                {
+                    <span> Edit Main Menu</span>
+                }
+                else
+                {
+                    <span> Create Main Menu</span>
+                }
+            </h5>
+            <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                <span aria-hidden="true">&times;</span>
+            </button>
+        </div>
+        <div class="modal-body">
+            <form id="actionForm">
+                <input type="hidden" name="MainMenuID" value="@Model.MainMenuID" />
+                <div class="form-group">
+                    <label>Name</label>
+                    <input class="form-control" name="MainMenuName" placeholder="Enter Main Menu Name" value="@Model.MainMenuName" required>
+                </div>
+                <div class="form-group">
+                    <label>Description</label>
+                    <textarea class="form-control" name="Description" placeholder="Enter Main Menu Description">@Model.Description</textarea>
+                </div>
+            </form>
+
+            <div class="errorDiv">
+
+            </div>
+
+        </div>
+        <div class="modal-footer">
+            <button id="actionButton" type="button" class="btn btn-primary"><i class="fa fa-save fa-xs">   Save</i></button>
+            <button type="button" class="btn btn-dark" data-dismiss="modal"><i class="fa fa-close fa-xs">   Close</i></button>
+        </div>
+    </div>
+
+}
+
+
+    <script>
+    $("#actionButton").click(function() {
+        $.ajax({
+            url: '@Url.Action("AddAndEdit", "MainMenu")',
+            type: 'post',
+            data: $("#actionForm").serialize(),
+        })
+        .done(function (response) {
+            if (response.Success)
+            {
+                location.reload();
+            }
+            else
+            {
+                $(".errorDiv").html(response.Message);
+            }
+        });
+    });
+    </script>
+

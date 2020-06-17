@@ -1,0 +1,50 @@
+﻿@model NHTBrandShop.Areas.Admin.Models.ProductsActionModel
+
+
+<div>
+    <form id="formRegister">
+        <div class="row">
+            <div class="col-md-12">
+                @Html.AntiForgeryToken()
+                @Html.ValidationSummary(true, "", new { @class = "text-danger" })
+                <div class="form-group">
+                    @Html.DropDownListFor(r => r.MainMenuID, ViewBag.MainMenuList as SelectList, "-- Select --", new { @class = "form-control" })
+                </div>
+                <div class="form-group">
+                    @Html.DropDownListFor(r => r.SubMenuID, ViewBag.SubMenuList as SelectList, "-- Select --", new { @class = "form-control" })
+                </div>
+                <div class="form-group">
+                    @Html.TextBoxFor(r => r.ProductName, new { @class = "form-control", @placeholder = "Name" })
+                </div>
+                <a href="#" class="btn btn-success btn-block" id="btnSubmit">Register</a>
+            </div>
+        </div>
+    </form>
+</div>
+@section scripts{
+    <script>
+        $(document).ready(function () {
+            $('body').on('change', '#MainMenuID', function () {
+                var mainMenuID = $(this).val();
+                LoadCampaigns(mainMenuID);
+            })
+        });
+
+        function LoadCampaigns(mainMenuID) {
+            var $subMenu = $('#SubMenuID');
+
+            $.ajax({
+                url: '/Product/GetSubMenuList',
+                type: 'GET',
+                data: { 'mainMenuID': mainMenuID },
+                dataType: 'json',
+                success: function (d) {
+                    $subMenu.empty();
+                    $subMenu.append($('<option></option>').val('').html("-- Select --"));
+                    $.each(d, function (i, val) {
+                        $subMenu.append($('<option></option>').val(val.SubMenuID).html(val.SubMenuName));
+                    });
+                }
+            });
+        }
+    </script>}

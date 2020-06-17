@@ -1,0 +1,54 @@
+﻿@model NHTBrandShop.Areas.Admin.Models.ProductsListingModel
+
+@{
+    ViewBag.Title = "Products";
+}
+
+<div class="row">
+    <hr />
+</div>
+<div class="card">
+    <div class="card-body">
+        <div class="row mb-2">
+            <div class="col col-lg-12">
+                <form>
+                    <div class="input-group">
+                        <div class="input-group-append" id="button-addon4">
+                            <button data-href="@Url.Action("AddAndEdit", "Product")" class="data-btn btn btn-primary"
+                                    type="button" data-toggle="modal" data-target="#actionModal">
+                                <i class="fa fa-plus-square mb-1"></i>   Create
+                            </button>
+                        </div>
+                    </div>
+                </form>
+            </div>
+        </div>
+
+        <div class="row mb-2">
+            <div class="col col-lg-12">
+                <br />
+                @{ Html.RenderPartial("_Listing", Model); }
+            </div>
+        </div>
+    </div>
+</div>
+
+<!-- Modal -->
+<div class="modal fade" id="actionModal" tabindex="-1" role="dialog">
+    <div class="modal-dialog" role="document">
+    </div>
+</div>
+
+<script>
+    $(".data-btn").click(function () {
+        $.ajax({
+            url: $(this).attr("data-href"),
+        })
+            .done(function (response) {
+                $("#actionModal .modal-dialog").html(response);
+            });
+    });
+</script>
+
+
+

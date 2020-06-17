@@ -1,0 +1,83 @@
+﻿@model NHTBrandShop.Areas.Admin.Models.SubMenuActionModel
+
+
+@if (Model != null)
+{
+    <div class="modal-content">
+        <div class="modal-header">
+            <h5 class="modal-title">
+                @if (Model.SubMenuID > 0)
+                {
+                    <span> Edit Sub Menu</span>
+                }
+                else
+                {
+                    <span> Create Sub Menu</span>
+                }
+            </h5>
+            <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                <span aria-hidden="true">&times;</span>
+            </button>
+        </div>
+        <div class="modal-body">
+            <form id="actionForm">
+                <input type="hidden" name="SubMenuID" value="@Model.SubMenuID" />
+                <div class="form-group">
+                    <label>Main Menu Name</label>
+                    <select class="form-control" name="MainMenuID">
+                        <option value="value">--</option>
+                        @if (Model.MainMenus != null)
+                        {
+                            foreach (var mainMenu in Model.MainMenus)
+                            {
+                                <option value="@mainMenu.MainMenuID" @(mainMenu.MainMenuID == Model.MainMenuID ? "selected" : string.Empty)>
+                                    @mainMenu.MainMenuName
+                                </option>
+                            }
+                        }
+                    </select>
+                </div>
+                <div class="form-group">
+                    <label>Sub Menu Name</label>
+                    <input class="form-control" name="SubMenuName" placeholder="Enter Sub Menu Name" value="@Model.SubMenuName" required>
+                </div>
+                <div class="form-group">
+                    <label>Description</label>
+                    <textarea class="form-control" name="Description" placeholder="Enter Sub Menu Description">@Model.Description</textarea>
+                </div>
+            </form>
+
+            <div class="errorDiv">
+
+            </div>
+
+        </div>
+        <div class="modal-footer">
+            <button id="actionButton" type="button" class="btn btn-primary"><i class="fa fa-save fa-xs">   Save</i></button>
+            <button type="button" class="btn btn-dark" data-dismiss="modal"><i class="fa fa-close fa-xs">   Close</i></button>
+        </div>
+    </div>
+
+}
+
+
+<script>
+    $("#actionButton").click(function() {
+        $.ajax({
+            url: '@Url.Action("AddAndEdit", "SubMenu")',
+            type: 'post',
+            data: $("#actionForm").serialize(),
+        })
+        .done(function (response) {
+            if (response.Success)
+            {
+                location.reload();
+            }
+            else
+            {
+                $(".errorDiv").html(response.Message);
+            }
+        });
+    });
+</script>
+

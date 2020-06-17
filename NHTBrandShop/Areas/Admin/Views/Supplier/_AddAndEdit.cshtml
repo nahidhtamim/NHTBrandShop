@@ -1,0 +1,59 @@
+﻿@model NHTBrandShop.Areas.Admin.Models.SupplierActionModel
+
+@if (Model != null)
+{
+    <div class="modal-content">
+        <div class="modal-header">
+            <h5 class="modal-title">
+                @if (Model.SupplierID > 0)
+                {
+                <span> Edit Supplier</span>
+                }
+                else
+                {
+                <span> Create Supplier</span>
+                }
+            </h5>
+            <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                <span aria-hidden="true">&times;</span>
+            </button>
+        </div>
+        <div class="modal-body">
+            <form id="actionForm">
+                <input type="hidden" name="SupplierID" value="@Model.SupplierID" />
+                <div class="form-group">
+                    <label>Name</label>
+                    <input class="form-control" name="SupplierName" placeholder="Enter Supplier's Name" value="@Model.SupplierName" required>
+                </div>
+            </form>
+
+            <div class="errorDiv">
+
+            </div>
+
+        </div>
+        <div class="modal-footer">
+            <button id="actionButton" type="button" class="btn btn-primary"><i class="fa fa-save fa-xs">   Save</i></button>
+            <button type="button" class="btn btn-dark" data-dismiss="modal"><i class="fa fa-close fa-xs">   Close</i></button>
+        </div>
+    </div>
+}
+    <script>
+    $("#actionButton").click(function() {
+        $.ajax({
+            url: '@Url.Action("AddAndEdit", "Supplier")',
+            type: 'post',
+            data: $("#actionForm").serialize(),
+        })
+        .done(function (response) {
+            if (response.Success)
+            {
+                location.reload();
+            }
+            else
+            {
+                $(".errorDiv").html(response.Message);
+            }
+        });
+    });
+    </script>

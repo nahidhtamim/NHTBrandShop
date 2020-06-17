@@ -1,0 +1,54 @@
+﻿@model NHTBrandShop.Areas.Admin.Models.SupplierListingModel
+@{
+    ViewBag.Title = "Supplier";
+}
+
+<div class="row">
+    <hr />
+</div>
+<div class="card">
+    <div class="card-body">
+        <div class="row mb-2">
+            <div class="col col-lg-12">
+                <form>
+                    <div class="input-group">
+                        @*<input type="text" name="searchTerm" class="form-control" placeholder="Search....." value="@Model.SearchTerm" required>*@
+                        <div class="input-group-append" id="button-addon4">
+                            @*<button class="btn btn-outline-info" type="submit"><i class="fas fa-search mb-1"></i> Search</button>
+                                <a class="btn btn-outline-secondary" href="@Url.Action("Index", "SubMenu")"><i class="fas fa-redo-alt mb-1"></i> Reset</a>*@
+                            <button data-href="@Url.Action("AddAndEdit", "Supplier")" class="data-btn btn btn-primary"
+                                    type="button" data-toggle="modal" data-target="#actionModal">
+                                <i class="fa fa-plus-square mb-1"></i>   Create
+                            </button>
+                        </div>
+                    </div>
+                </form>
+            </div>
+        </div>
+
+        <div class="row mb-2">
+            <div class="col col-lg-12">
+                <br />
+                @{ Html.RenderPartial("_Listing", Model); }
+            </div>
+        </div>
+    </div>
+</div>
+
+<!-- Modal -->
+<div class="modal fade" id="actionModal" tabindex="-1" role="dialog">
+    <div class="modal-dialog" role="document">
+    </div>
+</div>
+
+<script>
+    $(".data-btn").click(function () {
+        $.ajax({
+            url: $(this).attr("data-href"),
+        })
+            .done(function (response) {
+                $("#actionModal .modal-dialog").html(response);
+            });
+    });
+
+</script>

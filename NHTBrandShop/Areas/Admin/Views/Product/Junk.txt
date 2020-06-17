@@ -1,0 +1,123 @@
+﻿        //public List<MainMenu> GetAllMainMenus()
+        //{
+        //    var context = new BrandShopContext();
+
+        //    return context.MainMenus.ToList();
+
+        //}
+
+        //public List<SubMenu> GetSubMenuByMainMenu(int MainMenuID)
+        //{
+        //    var context = new BrandShopContext();
+
+        //    return context.SubMenus.Where(x => x.MainMenuID == MainMenuID).ToList();
+
+        //}
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+		
+		
+		//public ActionResult CreateRoom()
+        //{
+        //    /*GetCustomers(): Get the Customer list.*/
+        //    ViewBag.MainMenuList = new SelectList(GetAllMainMenus(), "MainMenuID", "MainMenuName");
+        //    ViewBag.SubMenuList = new SelectList(new List<SubMenu>(), "SubMenuID", "SubMenuName");
+
+        //    return PartialView("_CreateRoom");
+        //}
+
+        //private List<MainMenu> GetCustomers()
+        //{
+        //    var customers = new List<MainMenu>
+        //    {
+        //        new Customer{ ID = 1, Name = "Customer1"},
+        //        new Customer{ ID = 2, Name = "Customer2"},
+        //        new Customer{ ID = 3, Name = "Customer3"},
+        //        new Customer{ ID = 4, Name = "Customer4"},
+        //        new Customer{ ID = 5, Name = "Customer5"}
+        //    };
+        //    return customers;
+        //}
+
+        //public JsonResult GetSubMenuList(int MainMenuID)
+        //{
+        //    /*GetCampaigns(customerID):  Get the campaigns by customerID*/
+        //    return new JsonResult { Data = GetSubMenuByMainMenu(MainMenuID), JsonRequestBehavior = JsonRequestBehavior.AllowGet };
+        //}
+
+        //private List<Campaign> GetCampaigns(int customerID)
+        //{
+        //    List<Campaign> campaigns = new List<Campaign>
+        //    {
+        //        new Campaign{ ID = 1, Name = "Campaign1"},
+        //        new Campaign{ ID = 2, Name = "Campaign2"},
+        //        new Campaign{ ID = 3, Name = "Campaign3"},
+        //        new Campaign{ ID = 4, Name = "Campaign4"},
+        //        new Campaign{ ID = 5, Name = "Campaign5"},
+
+        //    };
+
+        //    var x = campaigns.Where(c => c.ID == customerID).ToList();
+        //    return x;
+        //}
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<div class="row">
+    <a href="#" onclick="AddRooms()">New Room</a>
+</div>
+
+<div class="modal" id="create-room" data-backdrop="static">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="modal-header">
+                <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
+                <h4 class="modal-title">New Room</h4>
+            </div>
+            <div class="modal-body" id="roomModalBody">
+
+            </div>
+        </div>
+    </div>
+</div>
+
+<script>
+    var AddRooms = function () {
+        var url = "/Product/CreateRoom";
+        $("#roomModalBody").load(url, function () {
+            $("#create-room").modal("show");
+        })
+    }
+</script>

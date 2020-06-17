@@ -1,0 +1,48 @@
+﻿@model NHTBrandShop.Areas.Admin.Models.TagListingModel
+
+@if (Model != null && Model.Tags != null && Model.Tags.Count() > 0)
+{
+<table id="listtable" class="table table-hover" style="width:100%">
+    <thead class="thead-secondary">
+        <tr>
+            <th scope="col">Tag</th>
+            <th scope="col">Updated At</th>
+            <th scope="col">Actions</th>
+        </tr>
+    </thead>
+    <tbody>
+        @foreach (var tag in Model.Tags)
+        {
+        <tr>
+            <td>
+                @tag.TagTitle
+            </td>
+            <td>
+                @tag.UpdatedAt
+            </td>
+            <td>
+                <div class="btn-group btn-group-toggle" data-toggle="buttons">
+                    <button data-href="@Url.Action("AddAndEdit", "Tag", new { ID = tag.TagID})"
+                            type="button" class="data-btn btn btn-dark" data-toggle="modal"
+                            data-target="#actionModal">
+                        <i class="fa fa-edit fa-xs">   Edit</i>
+                    </button>
+
+                    <button data-href="@Url.Action("Delete", "Tag", new { ID = tag.TagID})"
+                            type="button" class="data-btn btn btn-danger" data-toggle="modal"
+                            data-target="#actionModal">
+                        <i class="fa fa-trash fa-xs">   Delete</i>
+                    </button>
+                </div>
+            </td>
+        </tr>
+        }
+    </tbody>
+</table>
+}
+else
+{
+<div class="alert alert-warning" role="alert">
+    Sorry! No @ViewBag.Title Listed.
+</div>
+}
