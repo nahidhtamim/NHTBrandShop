@@ -1,0 +1,154 @@
+﻿@model NHTBrandShop.Areas.Admin.Models.ProductsActionModel
+
+@if (Model != null)
+{
+
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title">
+                    @if (Model.ProductID > 0)
+                    {
+                    <h4>@Model.ProductName</h4>
+                    }
+                </h5>
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                    <span aria-hidden="true">&times;</span>
+                </button>
+            </div>
+            <div class="modal-body">
+                <div class="row">
+                    <div class="col-md-12">
+                        <div class="card">
+                            <form id="actionForm">
+                                <input type="hidden" name="ProductID" value="@Model.ProductID" />
+                                <div class="pricing-list">
+                                    <div class="prc-head">
+                                        <h4>@Model.ProductName</h4>
+                                    </div>
+                                    <div class="prc-list">
+                                        <ul>
+                                            <li>
+                                                @Model.ProductCode
+                                            </li>
+                                            <li>
+                                                @if (Model.MainMenus != null)
+                                                {
+                                                    foreach (var mainMenu in Model.MainMenus)
+                                                    {
+                                                        <option value="@mainMenu.MainMenuID" @(mainMenu.MainMenuID == Model.MainMenuID ? "selected" : string.Empty)>
+                                                            @mainMenu.MainMenuName
+                                                        </option>
+                                                    }
+                                                }
+                                            </li>
+                                            <li>
+                                                @if (Model.SubMenus != null)
+                                                {
+                                                    foreach (var subMenu in Model.SubMenus)
+                                                    {
+                                                        <option value="@subMenu.SubMenuID" @(subMenu.SubMenuID == Model.SubMenuID ? "selected" : string.Empty)>
+                                                            @subMenu.SubMenuName
+                                                        </option>
+                                                    }
+                                                }
+                                            </li>
+                                            <li>
+                                                @if (Model.Suppliers != null)
+                                                {
+                                                    foreach (var supplier in Model.Suppliers)
+                                                    {
+                                                        <option id="SubMenuID" value="@supplier.SupplierID" @(supplier.SupplierID == Model.SupplierID ? "selected" : string.Empty)>
+                                                            @supplier.SupplierName
+                                                        </option>
+                                                    }
+                                                }
+                                            </li>
+                                            <li>
+                                                @if (Model.Tags != null)
+                                                {
+                                                    foreach (var tag in Model.Tags)
+                                                    {
+                                                        <option id="TagID" value="@tag.TagID" @(tag.TagID == Model.TagID ? "selected" : string.Empty)>
+                                                            @tag.TagTitle
+                                                        </option>
+                                                    }
+                                                }
+                                            </li>
+
+                                            <li>
+                                                @Model.BuyingPrice
+                                            </li>
+                                            <li>
+                                                @Model.RegularPrice
+                                            </li>
+                                            <li>
+                                                @Model.DiscountPrice
+                                            </li>
+                                            <li>
+                                                @Model.ProductQuantity
+                                            </li>
+                                            <li>
+                                                @Model.Color
+                                            </li>
+                                            <li>
+                                                @Model.Config
+                                            </li>
+                                            <li>
+                                                @Model.Description
+                                            </li>
+                                            <li>
+                                                @Model.ProductStatus
+                                            </li>
+                                            <li>
+                                                @Model.UpdatedAt
+                                            </li>
+                                        </ul>
+                                        <a href="#">Buy Package</a>
+                                    </div>
+                                </div>
+                            </form>
+                        </div>
+                    </div>
+                </div>
+                
+            </div>
+            <div class="modal-footer">
+                <button id="actionButton" type="button" class="btn btn-primary"><i class="fa fa-save fa-xs">   Save</i></button>
+                <button type="button" class="btn btn-dark" data-dismiss="modal"><i class="fa fa-close fa-xs">   Close</i></button>
+            </div>
+        </div>
+
+        }
+
+        @*<script>
+            $(document).ready(function () {
+                $("#MainMenuID").change(function () {
+                    $.get("/Product/GetSubMenuByMainMenu", { MainMenuID: $("#MainMenuID").val() }, function (data) {
+                        $("#SubMenuID").empty();
+                        $.each(data, function (index, row) {
+                            $("#SubMenuID").append("<option value='" + row.SubMenuID + "'>" + row.SubMenuName + "</option>")
+                        });
+                    });
+                })
+            });
+        </script>*@
+
+        @*<script>
+    $("#actionButton").click(function() {
+        $.ajax({
+            url: '@Url.Action("AddAndEdit", "Product")',
+            type: 'post',
+            data: $("#actionForm").serialize(),
+        })
+        .done(function (response) {
+            if (response.Success)
+            {
+                location.reload();
+            }
+            else
+            {
+                $(".errorDiv").html(response.Message);
+            }
+        });
+    });
+        </script>*@

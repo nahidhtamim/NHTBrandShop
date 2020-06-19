@@ -88,6 +88,24 @@ namespace NHTBrandShop.Areas.Admin.Controllers
                 subMenu.Description = model.Description;
                 subMenu.UpdatedAt = DateTime.Now;
 
+                var pictureIDs = model.SubMenuPictures
+                    .Split(new char[] { ',' }, StringSplitOptions.RemoveEmptyEntries)
+                    .Select(i=> int.Parse(i)).ToList();
+
+                subMenu.SubMenuPictures = new List<SubMenuPicture>();
+
+                subMenu.SubMenuPictures.AddRange(pictureIDs.Select(x=> new SubMenuPicture() { PictureID = x}).ToList());
+
+                //foreach (var picID in pictureIDs)
+                //{
+                //    var subMenuPicture = new SubMenuPicture();
+
+                //    subMenuPicture.PictureID = picID;
+
+                //    subMenu.SubMenuPictures.Add(subMenuPicture);
+                //}
+
+
                 result = subServices.SaveSubMenu(subMenu);
 
             }

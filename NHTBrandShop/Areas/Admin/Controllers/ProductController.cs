@@ -98,14 +98,6 @@ namespace NHTBrandShop.Areas.Admin.Controllers
                 var product = productServices.GetProductByID(model.ProductID);
 
                 product.MainMenuID = model.MainMenuID;
-                //if (model.SubMenuID == null)
-                //{
-                //    product.SubMenuID = 0;
-                //}
-                //else
-                //{
-                //    product.SubMenuID = (int)model.SubMenuID;
-                //}
                 product.SubMenuID = model.SubMenuID;
                 product.ProductName = model.ProductName;
                 product.ProductCode = model.ProductCode;
@@ -128,14 +120,6 @@ namespace NHTBrandShop.Areas.Admin.Controllers
                 Product product = new Product();
 
                 product.MainMenuID = model.MainMenuID;
-                //if (model.SubMenuID == null)
-                //{
-                //    product.SubMenuID = 0;
-                //}
-                //else
-                //{
-                //    product.SubMenuID = (int)model.SubMenuID;
-                //}
                 product.SubMenuID = model.SubMenuID;
                 product.ProductName = model.ProductName;
                 product.ProductCode = model.ProductCode;
@@ -176,6 +160,26 @@ namespace NHTBrandShop.Areas.Admin.Controllers
             var SubMenuList = context.SubMenus.Where(x => x.MainMenuID == MainMenuID).ToList();
 
             return Json(SubMenuList, JsonRequestBehavior.AllowGet);
+
+        }
+
+
+        [HttpGet]
+        public ActionResult Details(int ID)
+        {
+            ProductsActionModel model = new ProductsActionModel();
+
+            var product = productServices.GetProductByID(ID);
+
+            model.MainMenus = mainServices.GetAllMainMenus();
+
+            model.SubMenus = subServices.GetSubMenuByMainMenu(model.MainMenuID);
+
+            model.Tags = tagServices.GetAllTags();
+
+            model.Suppliers = supplierServices.GetAllSuppliers();
+
+            return PartialView("_Details", model);
 
         }
 

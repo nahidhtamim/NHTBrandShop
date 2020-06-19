@@ -27,6 +27,8 @@ namespace NHTBrandShop.Areas.Admin.Models
         public string Description { get; set; }
         public DateTime UpdatedAt { get; set; }
 
+        public string SubMenuPictures { get; set; }
+
         public IEnumerable<MainMenu> MainMenus { get; set; }
 
     }

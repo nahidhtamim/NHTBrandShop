@@ -51,6 +51,7 @@
     <Compile Include="MainMenuServices.cs" />
     <Compile Include="ProductServices.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="SharedServices.cs" />
     <Compile Include="SubMenuServices.cs" />
     <Compile Include="SupplierServices.cs" />
     <Compile Include="TagServices.cs" />
