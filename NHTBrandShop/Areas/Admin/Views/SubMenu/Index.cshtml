@@ -1,4 +1,5 @@
 ﻿@model NHTBrandShop.Areas.Admin.Models.SubMenuListingModel
+
 @{
     ViewBag.Title = "Sub Menu";
 }
@@ -15,7 +16,7 @@
                         @*<input type="text" name="searchTerm" class="form-control" placeholder="Search....." value="@Model.SearchTerm" required>*@
                         <div class="input-group-append" id="button-addon4">
                             @*<button class="btn btn-outline-info" type="submit"><i class="fas fa-search mb-1"></i> Search</button>
-                                <a class="btn btn-outline-secondary" href="@Url.Action("Index", "SubMenu")"><i class="fas fa-redo-alt mb-1"></i> Reset</a>*@
+                            <a class="btn btn-outline-secondary" href="@Url.Action("Index", "SubMenu")"><i class="fas fa-redo-alt mb-1"></i> Reset</a>*@
                             <button data-href="@Url.Action("AddAndEdit", "SubMenu")" class="data-btn btn btn-primary"
                                     type="button" data-toggle="modal" data-target="#actionModal">
                                 <i class="fa fa-plus-square mb-1"></i>   Create
@@ -26,6 +27,7 @@
             </div>
         </div>
 
+        <!-- Generate Listing Partial View -->
         <div class="row mb-2">
             <div class="col col-lg-12">
                 <br />
@@ -50,5 +52,6 @@
                 $("#actionModal .modal-dialog").html(response);
             });
     });
+
 
 </script>

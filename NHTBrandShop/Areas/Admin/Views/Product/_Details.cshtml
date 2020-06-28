@@ -2,7 +2,6 @@
 
 @if (Model != null)
 {
-
         <div class="modal-content">
             <div class="modal-header">
                 <h5 class="modal-title">
@@ -16,101 +15,78 @@
                 </button>
             </div>
             <div class="modal-body">
+                <!-- Portfolio Item Row -->
                 <div class="row">
-                    <div class="col-md-12">
-                        <div class="card">
-                            <form id="actionForm">
-                                <input type="hidden" name="ProductID" value="@Model.ProductID" />
-                                <div class="pricing-list">
-                                    <div class="prc-head">
-                                        <h4>@Model.ProductName</h4>
-                                    </div>
-                                    <div class="prc-list">
-                                        <ul>
-                                            <li>
-                                                @Model.ProductCode
-                                            </li>
-                                            <li>
-                                                @if (Model.MainMenus != null)
-                                                {
-                                                    foreach (var mainMenu in Model.MainMenus)
-                                                    {
-                                                        <option value="@mainMenu.MainMenuID" @(mainMenu.MainMenuID == Model.MainMenuID ? "selected" : string.Empty)>
-                                                            @mainMenu.MainMenuName
-                                                        </option>
-                                                    }
-                                                }
-                                            </li>
-                                            <li>
-                                                @if (Model.SubMenus != null)
-                                                {
-                                                    foreach (var subMenu in Model.SubMenus)
-                                                    {
-                                                        <option value="@subMenu.SubMenuID" @(subMenu.SubMenuID == Model.SubMenuID ? "selected" : string.Empty)>
-                                                            @subMenu.SubMenuName
-                                                        </option>
-                                                    }
-                                                }
-                                            </li>
-                                            <li>
-                                                @if (Model.Suppliers != null)
-                                                {
-                                                    foreach (var supplier in Model.Suppliers)
-                                                    {
-                                                        <option id="SubMenuID" value="@supplier.SupplierID" @(supplier.SupplierID == Model.SupplierID ? "selected" : string.Empty)>
-                                                            @supplier.SupplierName
-                                                        </option>
-                                                    }
-                                                }
-                                            </li>
-                                            <li>
-                                                @if (Model.Tags != null)
-                                                {
-                                                    foreach (var tag in Model.Tags)
-                                                    {
-                                                        <option id="TagID" value="@tag.TagID" @(tag.TagID == Model.TagID ? "selected" : string.Empty)>
-                                                            @tag.TagTitle
-                                                        </option>
-                                                    }
-                                                }
-                                            </li>
 
-                                            <li>
-                                                @Model.BuyingPrice
-                                            </li>
-                                            <li>
-                                                @Model.RegularPrice
-                                            </li>
-                                            <li>
-                                                @Model.DiscountPrice
-                                            </li>
-                                            <li>
-                                                @Model.ProductQuantity
-                                            </li>
-                                            <li>
-                                                @Model.Color
-                                            </li>
-                                            <li>
-                                                @Model.Config
-                                            </li>
-                                            <li>
-                                                @Model.Description
-                                            </li>
-                                            <li>
-                                                @Model.ProductStatus
-                                            </li>
-                                            <li>
-                                                @Model.UpdatedAt
-                                            </li>
-                                        </ul>
-                                        <a href="#">Buy Package</a>
-                                    </div>
-                                </div>
-                            </form>
-                        </div>
+                    <div class="col-md-8">
+                        <img class="img-fluid" src="http://placehold.it/750x500" alt="">
                     </div>
+
+                    <div class="col-md-4">
+                        <h3 class="my-3">Project Description</h3>
+                        <p>@Model.Description</p>
+                        <h3 class="my-3">Project Details</h3>
+                        <ul>
+                            <li>
+                                Buying Price: @Model.BuyingPrice
+                            </li>
+                            <li>
+                                Regular Price: @Model.RegularPrice
+                            </li>
+                            <li>
+                                Discount Price: @Model.DiscountPrice
+                            </li>
+                            <li>
+                                Product Quantity: @Model.ProductQuantity
+                            </li>
+                            <li>
+                                Colors Available: @Model.Color
+                            </li>
+                            <li>
+                                Configuration Available: @Model.Config
+                            </li>
+                            <li>
+                                Availibility: @Model.ProductStatus
+                            </li>
+                            <li>
+                                Modification Time: @Model.UpdatedAt
+                            </li>
+                        </ul>
+                    </div>
+
                 </div>
-                
+                <!-- /.row -->
+                <!-- Related Projects Row -->
+                <h3 class="my-4">Related Projects</h3>
+
+                <div class="row">
+
+                    <div class="col-md-3 col-sm-6 mb-4">
+                        <a href="#">
+                            <img class="img-fluid" src="http://placehold.it/500x300" alt="">
+                        </a>
+                    </div>
+
+                    <div class="col-md-3 col-sm-6 mb-4">
+                        <a href="#">
+                            <img class="img-fluid" src="http://placehold.it/500x300" alt="">
+                        </a>
+                    </div>
+
+                    <div class="col-md-3 col-sm-6 mb-4">
+                        <a href="#">
+                            <img class="img-fluid" src="http://placehold.it/500x300" alt="">
+                        </a>
+                    </div>
+
+                    <div class="col-md-3 col-sm-6 mb-4">
+                        <a href="#">
+                            <img class="img-fluid" src="http://placehold.it/500x300" alt="">
+                        </a>
+                    </div>
+
+                </div>
+
             </div>
             <div class="modal-footer">
                 <button id="actionButton" type="button" class="btn btn-primary"><i class="fa fa-save fa-xs">   Save</i></button>

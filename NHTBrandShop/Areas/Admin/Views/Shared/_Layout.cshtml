@@ -24,10 +24,12 @@
     <link href="~/Content/datatables.min.css" rel="stylesheet" />
     <link rel="stylesheet" type="text/css" href="https://cdn.datatables.net/1.10.18/css/dataTables.bootstrap4.min.css">
     <link rel="stylesheet" type="text/css" href="https://cdn.datatables.net/responsive/2.2.3/css/responsive.bootstrap.min.css">
-    <link rel="stylesheet" type="text/css" href="https://cdn.datatables.net/responsive/2.2.3/css/responsive.jqueryui.min.css">
+    @*<link rel="stylesheet" type="text/css" href="https://cdn.datatables.net/responsive/2.2.3/css/responsive.jqueryui.min.css">*@
 
     <!-- jquery latest version -->
-    <script src="~/Areas/TemplateContents/js/vendor/jquery-2.2.4.min.js"></script>
+    <script src="~/Scripts/jquery-3.3.1.min.js"></script>
+    @*<script src="~/Areas/TemplateContents/js/vendor/jquery-2.2.4.min.js"></script>*@
+    <script src="https://cdn.jsdelivr.net/npm/jquery-validation@1.19.2/dist/jquery.validate.min.js"></script>
     <!-- bootstrap 4 js -->
     <script src="~/Areas/TemplateContents/js/popper.min.js"></script>
     <script src="~/Areas/TemplateContents/js/bootstrap.min.js"></script>
@@ -39,6 +41,8 @@
 
     <!-- modernizr css -->
     <script src="~/Areas/TemplateContents/js/vendor/modernizr-2.8.3.min.js"></script>
+
+
 </head>
 <body>
     <!--[if lt IE 8]>
@@ -77,6 +81,9 @@
                             <li><a href="@Url.Action("Index","Product")"><i class="ti-package"></i> <span>Products</span></a></li>
                             <li><a href="@Url.Action("Index","Tag")"><i class="ti-tag"></i> <span>Tags</span></a></li>
                             <li><a href="@Url.Action("Index","Supplier")"><i class="ti-truck"></i> <span>Suppliers</span></a></li>
+                            <li><a href="@Url.Action("Index","Brand")"><i class="ti-crown"></i> <span>Brands</span></a></li>
+                            <li><a href="@Url.Action("Index","Role")"><i class="ti-wand"></i> <span>Roles</span></a></li>
+                            <li><a href="@Url.Action("Index","User")"><i class="ti-user"></i> <span>Users</span></a></li>
                             @*<li><a href="#"><i class="ti-map-alt"></i> <span>maps</span></a></li>
                             <li><a href="#"><i class="ti-receipt"></i> <span>Invoice Summary</span></a></li>
                             <li>
@@ -334,13 +341,14 @@
     <script src="~/Areas/TemplateContents/js/scripts.js"></script>
 
     @RenderSection("scripts", required: false)
-    <script src="~/Scripts/datatables.min.js"></script>
+    <script src="https://cdn.datatables.net/1.10.21/js/jquery.dataTables.min.js"></script>
     <script src="https://cdn.datatables.net/1.10.18/js/dataTables.bootstrap4.min.js"></script>
     <script src="https://cdn.datatables.net/responsive/2.2.3/js/dataTables.responsive.min.js"></script>
-    <script src="https://cdn.datatables.net/responsive/2.2.3/js/responsive.bootstrap.min.js"></script>
+    @*<script src="https://cdn.datatables.net/responsive/2.2.3/js/responsive.bootstrap.min.js"></script>*@
     <script>
         $(document).ready(function () {
             $('#listtable').DataTable();
+            responsive: true
         });
     </script>
 </body>

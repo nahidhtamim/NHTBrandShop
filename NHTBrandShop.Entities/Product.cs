@@ -23,6 +23,10 @@ namespace NHTBrandShop.Entities
         public int? SubMenuID { get; set; }
         public virtual SubMenu SubMenu { get; set; }
 
+        [ForeignKey("Brands")]
+        public int BrandID { get; set; }
+        public virtual Brand Brands { get; set; }
+
         [Required]
         [MaxLength(200)]
         public string ProductName { get; set; }
@@ -47,7 +51,8 @@ namespace NHTBrandShop.Entities
         public int TagID { get; set; }
         public virtual Tag Tags { get; set; }
 
-        public bool ProductStatus { get; set; }
+        public bool IsAvailable { get; set; }
+        public bool IsFeatured { get; set; }
         public DateTime UpdatedAt { get; set; }
 
 

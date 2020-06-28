@@ -1,0 +1,69 @@
+﻿@model NHTBrandShop.Areas.Admin.Models.UserListingModel
+
+@if (Model != null && Model.Users != null && Model.Users.Count() > 0)
+{
+    <table id="listtable" class="table table-hover" style="width:100%">
+        <thead class="thead-secondary">
+            <tr>
+                <th scope="col">Username</th>
+                <th scope="col">Role</th>
+                <th scope="col">Email Address</th>
+                <th scope="col">Mobile No</th>
+                <th scope="col">Address</th>
+                <th scope="col">BillingAddress [for Customers Only]</th>
+                <th scope="col">Updated At</th>
+                <th scope="col">Actions</th>
+            </tr>
+        </thead>
+        <tbody>
+            @foreach (var user in Model.Users)
+            {
+            <tr>
+                <td>
+                    @user.UserName
+                </td>
+                <td>
+                    @user.Role.RoleName
+                </td>
+                <td>
+                    @user.EmailAddress
+                </td>
+                <td>
+                    @user.MobileNo
+                </td>
+                <td>
+                    @user.Address
+                </td>
+                <td>
+                    @user.BillingAddress
+                </td>
+                <td>
+                    @user.UpdatedAt
+                </td>
+                <td>
+                    <div class="btn-group btn-group-toggle" data-toggle="buttons">
+                        <button data-href="@Url.Action("AddAndEdit", "User", new { ID = user.UserID})"
+                                type="button" class="data-btn btn btn-dark" data-toggle="modal"
+                                data-target="#actionModal">
+                            <i class="fa fa-edit fa-xs">   Edit</i>
+                        </button>
+
+                        <button data-href="@Url.Action("Delete", "User", new { ID = user.UserID})"
+                                type="button" class="data-btn btn btn-danger" data-toggle="modal"
+                                data-target="#actionModal">
+                            <i class="fa fa-trash fa-xs">   Delete</i>
+                        </button>
+                    </div>
+
+                </td>
+            </tr>
+            }
+        </tbody>
+    </table>
+}
+else
+{
+    <div class="alert alert-warning" role="alert">
+        Sorry! No @ViewBag.Title Listed.
+    </div>
+}

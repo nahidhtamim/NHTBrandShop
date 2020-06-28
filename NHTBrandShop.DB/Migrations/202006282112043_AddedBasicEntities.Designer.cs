@@ -7,13 +7,13 @@ namespace NHTBrandShop.DB.Migrations
     using System.Resources;
     
     [GeneratedCode("EntityFramework.Migrations", "6.2.0-61023")]
-    public sealed partial class AddedEntities : IMigrationMetadata
+    public sealed partial class AddedBasicEntities : IMigrationMetadata
     {
-        private readonly ResourceManager Resources = new ResourceManager(typeof(AddedEntities));
+        private readonly ResourceManager Resources = new ResourceManager(typeof(AddedBasicEntities));
         
         string IMigrationMetadata.Id
         {
-            get { return "202006042201539_AddedEntities"; }
+            get { return "202006282112043_AddedBasicEntities"; }
         }
         
         string IMigrationMetadata.Source

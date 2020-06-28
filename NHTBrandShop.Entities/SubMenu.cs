@@ -13,20 +13,19 @@ namespace NHTBrandShop.Entities
     {
         [Key]
         public int SubMenuID { get; set; }
-        [Required]
+        [Required/*(ErrorMessage = "Main Menu must be selected")*/]
         [ForeignKey("MainMenu")]
         public int MainMenuID { get; set; }
         public virtual MainMenu MainMenu { get; set; }
-        [Required]
-        [MaxLength(50)]
+        [Required/*(ErrorMessage = "Sub Menu Name is Required")*/]
+        [MaxLength(50, ErrorMessage ="Maximum Length Should be 50 Characters")]
         public string SubMenuName { get; set; }
         public string Description { get; set; }
 
-        public bool Status { get; set; }
 
         public DateTime UpdatedAt { get; set; }
 
 
-        public List<SubMenuPicture> SubMenuPictures { get; set; }
+        public virtual List<SubMenuPicture> SubMenuPictures { get; set; }
     }
 }

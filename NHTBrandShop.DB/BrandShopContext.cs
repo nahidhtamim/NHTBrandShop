@@ -24,6 +24,16 @@ namespace NHTBrandShop.DB
 
         public DbSet<Tag> Tags { get; set; }
 
+        public DbSet<Role> Roles { get; set; }
+
+        public DbSet<User> Users { get; set; }
+
+        public DbSet<Brand> Brands { get; set; }
+
         public DbSet<Picture> Pictures { get; set; }
+
+        public DbSet<SubMenuPicture> SubMenuPictures { get; set; }
+
+        public DbSet<ProductPicture> ProductPictures { get; set; }
     }
 }

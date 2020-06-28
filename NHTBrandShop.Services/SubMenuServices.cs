@@ -40,10 +40,10 @@ namespace NHTBrandShop.Services
 
         public SubMenu GetSubMenuByID(int ID)
         {
-            using (var context = new BrandShopContext())
-            {
-                return context.SubMenus.Find(ID);
-            }
+            var context = new BrandShopContext();
+            
+            return context.SubMenus.Find(ID);
+            
         }
 
         public bool SaveSubMenu(SubMenu subMenu)
@@ -60,7 +60,15 @@ namespace NHTBrandShop.Services
         {
             var context = new BrandShopContext();
 
-            context.Entry(subMenu).State = System.Data.Entity.EntityState.Modified;
+            var exitingSubMenu = context.SubMenus.Find(subMenu.SubMenuID);
+
+            context.SubMenuPictures.RemoveRange(exitingSubMenu.SubMenuPictures);
+
+            context.Entry(exitingSubMenu).CurrentValues.SetValues(subMenu);
+
+            context.SubMenuPictures.AddRange(subMenu.SubMenuPictures);
+
+            //context.Entry(subMenu).State = System.Data.Entity.EntityState.Modified;
 
             return context.SaveChanges() > 0;
         }
@@ -75,5 +83,13 @@ namespace NHTBrandShop.Services
 
         }
 
+
+        public List<SubMenuPicture> GetPictureBySubMneID(int subMenuID)
+        {
+            var context = new BrandShopContext();
+
+            return context.SubMenus.Find(subMenuID).SubMenuPictures.ToList();
+
+        }
     }
 }

@@ -1,0 +1,113 @@
+﻿
+<script>
+    $("#actionForm").validate({
+        rules: {
+            SubMenuName: {
+                required: true,
+                maxlength: 50
+            }
+        },
+        messages: {
+            SubMenuName: {
+                required: "Sub Menu Name is Required",
+                maxlength: "Maximum Length Should be 50 Characters"
+            }
+        },
+    });
+
+
+    $("#actionButton").click(function () {
+
+        if ($("#actionForm").valid()) {
+
+            //var imageIDs = [];
+
+            //$("#pictureArea .image").each(function () {
+            //    var imageID = $(this).attr("data-id");
+            //    imageIDs.push(imageID);
+            //});
+
+            //$("#pictureIDs").val(imageIDs.join());
+
+            $.ajax({
+                url: '@Url.Action("AddAndEdit", "SubMenu")',
+                type: 'post',
+                data: $("#actionForm").serialize(),
+            })
+                .done(function (response) {
+                    if (response.Success) {
+                        location.reload();
+                    }
+                    else {
+                        $(".errorDiv").html(response.Message);
+                        $(".errorDiv").show();
+                    }
+                });
+        };
+    });
+
+    $("#selectImages").change(function() {
+
+        var pictures = this.files;
+
+        var picsData = new FormData();
+
+        for (var i = 0; i < pictures.length; i++) {
+            picsData.append("Picture", pictures[i]);
+        }
+
+        $.ajax({
+            url: '@Url.Action("UploadPictures", "Shared")',
+            type: 'post',
+            data: picsData,
+            dataType: "json",
+            processData: false,
+            contentType: false
+        })
+            .done(function (responses) {
+
+                ////var picIDs = "";
+
+                //for (var i = 0; i < responses.length; i++) {
+
+                //    var picResponse = responses[i];
+
+                //    //var imgHtml = "<img class='img-fluid' src='/images/" + picResponse.pictureURL + "' />";
+
+                //    //$("#pictureArea").append(imgHtml);
+
+                //    AttachNewImage(picResponse.pictureURL, picResponse.ID);
+
+                //    //picIDs = picIDs + "," + picResponse.ID;
+
+                //}
+
+                ////$("#pictureIDs").val(picIDs);
+
+            });
+    });
+
+    //function AttachNewImage(imageURL, imageID) {
+
+    //    var $newimgHtml = $("#imageTemplate").clone();
+
+    //    $newimgHtml.find(".image").attr("src", "/images/" + imageURL);
+
+    //    $newimgHtml.find(".image").attr("data-id", imageID);
+
+    //    $("#pictureArea").append($newimgHtml.html());
+
+    //    RemoveImageOnClick();
+    //};
+
+
+
+    //function RemoveImageOnClick() {
+
+    //    $("#pictureArea .image").click(function () {
+
+    //        $(this).remove();
+    //    });
+    //};
+
+</script>

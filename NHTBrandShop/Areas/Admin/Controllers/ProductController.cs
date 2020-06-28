@@ -13,13 +13,10 @@ namespace NHTBrandShop.Areas.Admin.Controllers
     public class ProductController : Controller
     {
         MainMenuServices mainServices = new MainMenuServices();
-
         SubMenuServices subServices = new SubMenuServices();
-
         TagServices tagServices = new TagServices();
-
+        BrandServices brandServices = new BrandServices();
         SupplierServices supplierServices = new SupplierServices();
-
         ProductServices productServices = new ProductServices();
 
         // GET: Admin/Product
@@ -29,13 +26,10 @@ namespace NHTBrandShop.Areas.Admin.Controllers
             ProductsListingModel model = new ProductsListingModel();
 
             model.Products = productServices.GetAllProducts();
-
             model.MainMenus = mainServices.GetAllMainMenus();
-
             model.SubMenus = subServices.GetAllSubMenus();
-
+            model.Brands = brandServices.GetAllBrands();
             model.Tags = tagServices.GetAllTags();
-
             model.Suppliers = supplierServices.GetAllSuppliers();
 
             return View(model);
@@ -54,6 +48,7 @@ namespace NHTBrandShop.Areas.Admin.Controllers
                 model.ProductID = product.ProductID;
                 model.MainMenuID = product.MainMenuID;
                 model.SubMenuID = product.SubMenuID;
+                model.BrandID = product.BrandID;
                 model.ProductName = product.ProductName;
                 model.ProductCode = product.ProductCode;
                 model.BuyingPrice = product.BuyingPrice;
@@ -63,7 +58,8 @@ namespace NHTBrandShop.Areas.Admin.Controllers
                 model.Color = product.Color;
                 model.Config = product.Config;
                 model.Description = product.Description;
-                model.ProductStatus = product.ProductStatus;
+                model.IsAvailable = product.IsAvailable;
+                model.IsFeatured = product.IsFeatured;
                 model.SupplierID = product.SupplierID;
                 model.TagID = product.TagID;
             }
@@ -75,11 +71,9 @@ namespace NHTBrandShop.Areas.Admin.Controllers
             ViewBag.MainMenuList = new SelectList(MainMenuList, "MainMenuID", "MainMenuName");
 
             model.MainMenus = mainServices.GetAllMainMenus();
-
             model.SubMenus = subServices.GetSubMenuByMainMenu(model.MainMenuID);
-
+            model.Brands = brandServices.GetAllBrands();
             model.Tags = tagServices.GetAllTags();
-
             model.Suppliers = supplierServices.GetAllSuppliers();
 
             return PartialView("_AddAndEdit", model);
@@ -99,6 +93,7 @@ namespace NHTBrandShop.Areas.Admin.Controllers
 
                 product.MainMenuID = model.MainMenuID;
                 product.SubMenuID = model.SubMenuID;
+                product.BrandID = model.BrandID;
                 product.ProductName = model.ProductName;
                 product.ProductCode = model.ProductCode;
                 product.BuyingPrice = model.BuyingPrice;
@@ -108,7 +103,8 @@ namespace NHTBrandShop.Areas.Admin.Controllers
                 product.Color = model.Color;
                 product.Config = model.Config;
                 product.Description = model.Description;
-                product.ProductStatus = model.ProductStatus;
+                product.IsAvailable = model.IsAvailable;
+                product.IsFeatured = model.IsFeatured;
                 product.TagID = model.TagID;
                 product.SupplierID = model.SupplierID;
                 product.UpdatedAt = DateTime.Now;
@@ -121,6 +117,7 @@ namespace NHTBrandShop.Areas.Admin.Controllers
 
                 product.MainMenuID = model.MainMenuID;
                 product.SubMenuID = model.SubMenuID;
+                product.BrandID = model.BrandID;
                 product.ProductName = model.ProductName;
                 product.ProductCode = model.ProductCode;
                 product.BuyingPrice = model.BuyingPrice;
@@ -130,7 +127,8 @@ namespace NHTBrandShop.Areas.Admin.Controllers
                 product.Color = model.Color;
                 product.Config = model.Config;
                 product.Description = model.Description;
-                product.ProductStatus = model.ProductStatus;
+                product.IsAvailable = model.IsAvailable;
+                product.IsFeatured = model.IsFeatured;
                 product.TagID = model.TagID;
                 product.SupplierID = model.SupplierID;
                 product.UpdatedAt = DateTime.Now;

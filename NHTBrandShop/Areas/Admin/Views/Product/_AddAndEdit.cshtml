@@ -52,9 +52,24 @@
                     </select>
                 </div>
                 <div class="form-group">
+                    <label>Brand Name</label>
+                    <select class="form-control" id="BrandID" name="BrandID">
+                        <option value="">--</option>
+                        @if (Model.Brands != null)
+                        {
+                            foreach (var brand in Model.Brands)
+                            {
+                                <option value="@brand.BrandID" @(brand.BrandID == Model.BrandID ? "selected" : string.Empty)>
+                                    @brand.BrandName
+                                </option>
+                            }
+                        }
+                    </select>
+                </div>
+                <div class="form-group">
                     <label>Supplier Name</label>
-                    <select class="form-control" name="SupplierID">
-                        <option id="SupplierID" value="value">--</option>
+                    <select class="form-control" id="SupplierID" name="SupplierID">
+                        <option value="value">--</option>
                         @if (Model.Suppliers != null)
                         {
                             foreach (var supplier in Model.Suppliers)
@@ -69,8 +84,8 @@
 
                 <div class="form-group">
                     <label>Tag</label>
-                    <select class="form-control" name="TagID">
-                        <option id="TagID" value="value">--</option>
+                    <select class="form-control" id="TagID" name="TagID">
+                        <option value="value">--</option>
                         @if (Model.Tags != null)
                         {
                             foreach (var tag in Model.Tags)
@@ -121,7 +136,11 @@
                 </div>
                 <div class="form-group">
                     <label>Availability</label>
-                    <input type="checkbox" class="form-control" name="ProductStatus" value="@Model.ProductStatus" required>
+                    <input id="IsAvailable" name="IsAvailable" type="checkbox" value="true" @(Model.IsAvailable ? "checked=\"checked\"" : "") />
+                </div>
+                <div class="form-group">
+                    <label>Availability</label>
+                    <input id="ProductStatus" name="IsFeatured" type="checkbox" value="true" @(Model.IsFeatured ? "checked=\"checked\"" : "") />
                 </div>
 
             </form>

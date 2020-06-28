@@ -129,18 +129,25 @@
     <Compile Include="App_Start\FilterConfig.cs" />
     <Compile Include="App_Start\RouteConfig.cs" />
     <Compile Include="Areas\Admin\AdminAreaRegistration.cs" />
+    <Compile Include="Areas\Admin\Controllers\BrandController.cs" />
     <Compile Include="Areas\Admin\Controllers\DashboardController.cs" />
     <Compile Include="Areas\Admin\Controllers\MainMenuController.cs" />
     <Compile Include="Areas\Admin\Controllers\ProductController.cs" />
+    <Compile Include="Areas\Admin\Controllers\RoleController.cs" />
     <Compile Include="Areas\Admin\Controllers\SharedController.cs" />
     <Compile Include="Areas\Admin\Controllers\SubMenuController.cs" />
     <Compile Include="Areas\Admin\Controllers\SupplierController.cs" />
     <Compile Include="Areas\Admin\Controllers\TagController.cs" />
+    <Compile Include="Areas\Admin\Controllers\UserController.cs" />
+    <Compile Include="Areas\Admin\Models\BrandModel.cs" />
     <Compile Include="Areas\Admin\Models\MainMenuModel.cs" />
+    <Compile Include="Areas\Admin\Models\PicturesModel.cs" />
     <Compile Include="Areas\Admin\Models\ProductsModel.cs" />
+    <Compile Include="Areas\Admin\Models\RoleModel.cs" />
     <Compile Include="Areas\Admin\Models\SubMenuModel.cs" />
     <Compile Include="Areas\Admin\Models\SupplierModel.cs" />
     <Compile Include="Areas\Admin\Models\TagModel.cs" />
+    <Compile Include="Areas\Admin\Models\UserModel.cs" />
     <Compile Include="Controllers\HomeController.cs" />
     <Compile Include="Global.asax.cs">
       <DependentUpon>Global.asax</DependentUpon>
@@ -148,8 +155,10 @@
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
   <ItemGroup>
+    <Content Include="Areas\Admin\Views\Product\Details Junk.txt" />
     <Content Include="Areas\Admin\Views\Product\Junk.txt" />
     <Content Include="Areas\Admin\Views\Shared\Junk.txt" />
+    <Content Include="Areas\Admin\Views\SubMenu\AddandEdit Junk.txt" />
     <Content Include="Areas\TemplateContents\css\bootstrap.min.css" />
     <Content Include="Areas\TemplateContents\css\default-css.css" />
     <Content Include="Areas\TemplateContents\css\font-awesome.min.css" />
@@ -262,6 +271,19 @@
     <Content Include="Areas\Admin\Views\Product\_AddAndEdit.cshtml" />
     <Content Include="Areas\Admin\Views\Product\_CreateRoom.cshtml" />
     <Content Include="Areas\Admin\Views\Product\_Details.cshtml" />
+    <Content Include="Areas\Admin\Views\Role\Index.cshtml" />
+    <Content Include="Areas\Admin\Views\Role\_Listing.cshtml" />
+    <Content Include="Areas\Admin\Views\Role\_AddAndEdit.cshtml" />
+    <Content Include="Areas\Admin\Views\Role\_Delete.cshtml" />
+    <Content Include="Areas\Admin\Views\Product\_Delete.cshtml" />
+    <Content Include="Areas\Admin\Views\Brand\_Delete.cshtml" />
+    <Content Include="Areas\Admin\Views\Brand\_Listing.cshtml" />
+    <Content Include="Areas\Admin\Views\Brand\_AddAndEdit.cshtml" />
+    <Content Include="Areas\Admin\Views\Brand\Index.cshtml" />
+    <Content Include="Areas\Admin\Views\User\Index.cshtml" />
+    <Content Include="Areas\Admin\Views\User\_Listing.cshtml" />
+    <Content Include="Areas\Admin\Views\User\_AddAndEdit.cshtml" />
+    <Content Include="Areas\Admin\Views\User\_Delete.cshtml" />
     <None Include="Scripts\jquery-3.3.1.intellisense.js" />
     <Content Include="Scripts\bootstrap.js" />
     <Content Include="Scripts\bootstrap.min.js" />

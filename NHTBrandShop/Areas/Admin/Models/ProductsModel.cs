@@ -18,6 +18,9 @@ namespace NHTBrandShop.Areas.Admin.Models
         public IEnumerable<MainMenu> MainMenus { get; set; }
         public int? MainMenuID { get; set; }
 
+        public IEnumerable<Brand> Brands { get; set; }
+        public int? BrandID { get; set; }
+
         public IEnumerable<Tag> Tags { get; set; }
         public int? TagID { get; set; }
 
@@ -37,6 +40,9 @@ namespace NHTBrandShop.Areas.Admin.Models
         public int? SubMenuID { get; set; }
         public SubMenu SubMenu { get; set; }
 
+        public int BrandID { get; set; }
+        public Brand Brand { get; set; }
+
         [Required]
         public string ProductName { get; set; }
         [Required]
@@ -50,7 +56,8 @@ namespace NHTBrandShop.Areas.Admin.Models
         public string Config { get; set; }
 
         public string Description { get; set; }
-        public bool ProductStatus { get; set; }
+        public bool IsAvailable { get; set; }
+        public bool IsFeatured { get; set; }
 
         public int SupplierID { get; set; }
         public Supplier Supplier { get; set; }
@@ -62,6 +69,7 @@ namespace NHTBrandShop.Areas.Admin.Models
         public DateTime UpdatedAt { get; set; }
 
         public IEnumerable<SubMenu> SubMenus { get; set; }
+        public IEnumerable<Brand> Brands { get; set; }
         public IEnumerable<MainMenu> MainMenus { get; set; }
         public IEnumerable<Supplier> Suppliers { get; set; }
         public IEnumerable<Tag> Tags { get; set; }

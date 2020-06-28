@@ -11,45 +11,81 @@ namespace NHTBrandShop.Areas.Admin.Controllers
 {
     public class SharedController : Controller
     {
-        SharedServices service = new SharedServices();
+        //SharedServices service = new SharedServices();
 
 
         // GET: Admin/Shared
-        public ActionResult Index()
-        {
-            return View();
-        }
+        //public ActionResult Index()
+        //{
+        //    return View();
+        //}
 
+
+        //[HttpPost]
+        //public JsonResult UploadPictures()
+        //{
+        //    JsonResult result = new JsonResult();
+
+        //    List<object> pictureJSON = new List<object>();
+
+        //    var pictures = Request.Files;
+
+        //    for (int i = 0; i < pictures.Count; i++)
+        //    {
+        //        var picture = pictures[i];
+
+        //        var fileName = Guid.NewGuid() + Path.GetExtension(picture.FileName);
+
+        //        var path = Server.MapPath("~/images/") + fileName;
+
+        //        picture.SaveAs(path);
+
+        //        var dbPicture = new Picture();
+
+        //        dbPicture.Url = fileName;
+
+        //        int pictureID = service.SavePicture(dbPicture);
+
+        //        pictureJSON.Add(new { ID = pictureID, pictureURL = fileName });
+        //    }
+
+        //    result.Data = pictureJSON;
+
+        //    return result;
+        //}
 
         [HttpPost]
         public JsonResult UploadPictures()
         {
             JsonResult result = new JsonResult();
 
-            List<object> pictureJSON = new List<object>();
+            var sharedServices = new SharedServices();
 
-            var pictures = Request.Files;
+            var picsList = new List<Picture>();
 
-            for (int i = 0; i < pictures.Count; i++)
+            var files = Request.Files;
+
+            for (int i = 0; i < files.Count; i++)
             {
-                var picture = pictures[i];
+                var picture = files[i];
 
                 var fileName = Guid.NewGuid() + Path.GetExtension(picture.FileName);
 
-                var path = Server.MapPath("~/images/") + fileName;
+                var filePath = Server.MapPath("~/images/") + fileName;
 
-                picture.SaveAs(path);
+                picture.SaveAs(filePath);
 
                 var dbPicture = new Picture();
 
                 dbPicture.Url = fileName;
 
-                int pictureID = service.SavePicture(dbPicture);
+                if (sharedServices.SavePicture(dbPicture))
+                {
+                    picsList.Add(dbPicture);
+                }
 
-                pictureJSON.Add(new { ID = pictureID, pictureURL = fileName });
             }
-
-            result.Data = pictureJSON;
+            result.Data = picsList;
 
             return result;
         }

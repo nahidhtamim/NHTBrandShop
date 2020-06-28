@@ -10,15 +10,19 @@ namespace NHTBrandShop.Services
 {
     public class SharedServices
     {
-        public int SavePicture(Picture picture)
+        public bool SavePicture(Picture pictures)
         {
             var context = new BrandShopContext();
 
-            context.Pictures.Add(picture);
+            context.Pictures.Add(pictures);
 
-            context.SaveChanges();
+            return context.SaveChanges() > 0;
+        }
+        public IEnumerable<Picture> GetPictureByIDs(List<int> pictureIDs)
+        {
+            var context = new BrandShopContext();
 
-            return picture.PictureID;
+            return pictureIDs.Select(x => context.Pictures.Find(x)).ToList();
         }
     }
 }

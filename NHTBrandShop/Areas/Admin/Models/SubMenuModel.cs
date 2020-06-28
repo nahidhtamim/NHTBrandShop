@@ -13,7 +13,6 @@ namespace NHTBrandShop.Areas.Admin.Models
         public string SearchTerm { get; set; }
         public IEnumerable<MainMenu> MainMenus { get; set; }
         public int? MainMenuID { get; set; }
-
     }
 
     public class SubMenuActionModel
@@ -27,9 +26,12 @@ namespace NHTBrandShop.Areas.Admin.Models
         public string Description { get; set; }
         public DateTime UpdatedAt { get; set; }
 
-        public string SubMenuPictures { get; set; }
+        public string PictureIDs { get; set; }
+
+        public List<SubMenuPicture> SubMenuPictures { get; set; }
 
         public IEnumerable<MainMenu> MainMenus { get; set; }
 
     }
+
 }

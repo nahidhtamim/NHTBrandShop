@@ -1,0 +1,93 @@
+﻿@model NHTBrandShop.Areas.Admin.Models.UserActionModel
+
+@if (Model != null)
+{
+    <div class="modal-content">
+        <div class="modal-header">
+            <h5 class="modal-title">
+                @if (Model.UserID > 0)
+                {
+                <span> Edit User</span>
+                }
+                else
+                {
+                <span> Create User</span>
+                }
+            </h5>
+            <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                <span aria-hidden="true">&times;</span>
+            </button>
+        </div>
+        <div class="modal-body">
+            <form id="actionForm">
+                <input type="hidden" name="UserID" value="@Model.UserID" />
+                <div class="form-group">
+                    <label>Username</label>
+                    <input class="form-control" name="UserName" placeholder="Enter Username" value="@Model.UserName" required>
+                </div>
+                <div class="form-group">
+                    <label>Role</label>
+                    <select class="form-control" name="RoleID">
+                        <option value="value">--</option>
+                        @if (Model.Roles != null)
+                        {
+                            foreach (var role in Model.Roles)
+                            {
+                                <option value="@role.RoleID" @(role.RoleID == Model.RoleID ? "selected" : string.Empty)>
+                                    @role.RoleName
+                                </option>
+                            }
+                        }
+                    </select>
+                </div>
+                <div class="form-group">
+                    <label>Email Address</label>
+                    <input class="form-control" name="EmailAddress" placeholder="Enter Email Address" value="@Model.EmailAddress" required>
+                </div>
+                <div class="form-group">
+                    <label>Mobile No</label>
+                    <input class="form-control" name="MobileNo" placeholder="Enter Mobile No" value="@Model.MobileNo" required>
+                </div>
+                <div class="form-group">
+                    <label>Address</label>
+                    <input class="form-control" name="Address" placeholder="Enter Address" value="@Model.Address" required>
+                </div>
+                <div class="form-group">
+                    <label>Billing Address [Customers Only]</label>
+                    <input class="form-control" name="BillingAddress" placeholder="Enter Billing Address" value="@Model.BillingAddress" required>
+                </div>
+            </form>
+
+            <div class="errorDiv">
+
+            </div>
+
+        </div>
+        <div class="modal-footer">
+            <button id="actionButton" type="button" class="btn btn-primary"><i class="fa fa-save fa-xs">   Save</i></button>
+            <button type="button" class="btn btn-dark" data-dismiss="modal"><i class="fa fa-close fa-xs">   Close</i></button>
+        </div>
+    </div>
+
+}
+
+
+<script>
+    $("#actionButton").click(function() {
+        $.ajax({
+            url: '@Url.Action("AddAndEdit", "User")',
+            type: 'post',
+            data: $("#actionForm").serialize(),
+        })
+        .done(function (response) {
+            if (response.Success)
+            {
+                location.reload();
+            }
+            else
+            {
+                $(".errorDiv").html(response.Message);
+            }
+        });
+    });
+</script>

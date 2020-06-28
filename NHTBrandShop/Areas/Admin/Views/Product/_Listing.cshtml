@@ -8,6 +8,7 @@
                 <th scope="col">Product Name</th>
                 <th scope="col">Main Menu</th>
                 <th scope="col">Sub Menu</th>
+                <th scope="col">Brand</th>
                 @*<th scope="col">Supplier</th>*@
                 <th scope="col">Product Code</th>
                 @*<th scope="col">Buying Price</th>
@@ -36,6 +37,12 @@
                     @if (product.SubMenu != null)
                     {
                         @product.SubMenu.SubMenuName
+                    }
+                </td>
+                <td>
+                    @if (product.Brands != null)
+                    {
+                        @product.Brands.BrandName
                     }
                 </td>
                 @*<td>

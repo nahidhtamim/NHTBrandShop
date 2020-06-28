@@ -1,0 +1,94 @@
+﻿<div class="row">
+                    <div class="col-md-12">
+                        <div class="card">
+                            <form id="actionForm">
+                                <input type="hidden" name="ProductID" value="@Model.ProductID" />
+                                <div class="pricing-list">
+                                    <div class="prc-head">
+                                        <h4>@Model.ProductName</h4>
+                                    </div>
+                                    <div class="prc-list">
+                                        <ul>
+                                            <li>
+                                                @Model.ProductCode
+                                            </li>
+                                            <li>
+                                                @if (Model.MainMenus != null)
+                                                {
+                                                    foreach (var mainMenu in Model.MainMenus)
+                                                    {
+                                                        <option value="@mainMenu.MainMenuID" @(mainMenu.MainMenuID == Model.MainMenuID ? "selected" : string.Empty)>
+                                                            @mainMenu.MainMenuName
+                                                        </option>
+                                                    }
+                                                }
+                                            </li>
+                                            <li>
+                                                @if (Model.SubMenus != null)
+                                                {
+                                                    foreach (var subMenu in Model.SubMenus)
+                                                    {
+                                                        <option value="@subMenu.SubMenuID" @(subMenu.SubMenuID == Model.SubMenuID ? "selected" : string.Empty)>
+                                                            @subMenu.SubMenuName
+                                                        </option>
+                                                    }
+                                                }
+                                            </li>
+                                            <li>
+                                                @if (Model.Suppliers != null)
+                                                {
+                                                    foreach (var supplier in Model.Suppliers)
+                                                    {
+                                                        <option id="SubMenuID" value="@supplier.SupplierID" @(supplier.SupplierID == Model.SupplierID ? "selected" : string.Empty)>
+                                                            @supplier.SupplierName
+                                                        </option>
+                                                    }
+                                                }
+                                            </li>
+                                            <li>
+                                                @if (Model.Tags != null)
+                                                {
+                                                    foreach (var tag in Model.Tags)
+                                                    {
+                                                        <option id="TagID" value="@tag.TagID" @(tag.TagID == Model.TagID ? "selected" : string.Empty)>
+                                                            @tag.TagTitle
+                                                        </option>
+                                                    }
+                                                }
+                                            </li>
+
+                                            <li>
+                                                @Model.BuyingPrice
+                                            </li>
+                                            <li>
+                                                @Model.RegularPrice
+                                            </li>
+                                            <li>
+                                                @Model.DiscountPrice
+                                            </li>
+                                            <li>
+                                                @Model.ProductQuantity
+                                            </li>
+                                            <li>
+                                                @Model.Color
+                                            </li>
+                                            <li>
+                                                @Model.Config
+                                            </li>
+                                            <li>
+                                                @Model.Description
+                                            </li>
+                                            <li>
+                                                @Model.ProductStatus
+                                            </li>
+                                            <li>
+                                                @Model.UpdatedAt
+                                            </li>
+                                        </ul>
+                                        <a href="#">Buy Package</a>
+                                    </div>
+                                </div>
+                            </form>
+                        </div>
+                    </div>
+                </div>

@@ -48,13 +48,16 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="BrandServices.cs" />
     <Compile Include="MainMenuServices.cs" />
     <Compile Include="ProductServices.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="RoleServices.cs" />
     <Compile Include="SharedServices.cs" />
     <Compile Include="SubMenuServices.cs" />
     <Compile Include="SupplierServices.cs" />
     <Compile Include="TagServices.cs" />
+    <Compile Include="UserServices.cs" />
   </ItemGroup>
   <ItemGroup>
     <ProjectReference Include="..\NHTBrandShop.DB\NHTBrandShop.DB.csproj">

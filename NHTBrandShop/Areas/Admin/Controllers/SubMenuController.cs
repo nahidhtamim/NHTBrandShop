@@ -15,6 +15,8 @@ namespace NHTBrandShop.Areas.Admin.Controllers
 
         SubMenuServices subServices = new SubMenuServices();
 
+        SharedServices sharedServices = new SharedServices();
+
         // GET: Admin/SubMenu
         public ActionResult Index()
         {
@@ -53,8 +55,8 @@ namespace NHTBrandShop.Areas.Admin.Controllers
                 model.SubMenuName = subMenu.SubMenuName;
                 model.Description = subMenu.Description;
 
+                model.SubMenuPictures = subServices.GetPictureBySubMneID(subMenu.SubMenuID);
             }
-
             model.MainMenus = mainServices.GetAllMainMenus();
 
             return PartialView("_AddAndEdit", model);
@@ -68,46 +70,40 @@ namespace NHTBrandShop.Areas.Admin.Controllers
 
             var result = false;
 
-            if (model.SubMenuID > 0)
+            List<int> pictureIDs = !string.IsNullOrEmpty(model.PictureIDs) ? model.PictureIDs.Split(',').Select(x => int.Parse(x)).ToList() : new List<int>();
+
+            var pictures = sharedServices.GetPictureByIDs(pictureIDs);
+
+            if (ModelState.IsValid)
             {
-                var subMenu = subServices.GetSubMenuByID(model.SubMenuID);
+                if (model.SubMenuID > 0)
+                {
+                    var subMenu = subServices.GetSubMenuByID(model.SubMenuID);
 
-                subMenu.MainMenuID = model.MainMenuID;
-                subMenu.SubMenuName = model.SubMenuName;
-                subMenu.Description = model.Description;
-                subMenu.UpdatedAt = DateTime.Now;
+                    subMenu.MainMenuID = model.MainMenuID;
+                    subMenu.SubMenuName = model.SubMenuName;
+                    subMenu.Description = model.Description;
+                    subMenu.UpdatedAt = DateTime.Now;
 
-                result = subServices.UpdateSubMenu(subMenu);
-            }
-            else
-            {
-                SubMenu subMenu = new SubMenu();
+                    subMenu.SubMenuPictures.Clear();
+                    subMenu.SubMenuPictures.AddRange(pictures.Select(x => new SubMenuPicture() { SubMenuID = subMenu.SubMenuID, PictureID = x.PictureID }));
 
-                subMenu.MainMenuID = model.MainMenuID;
-                subMenu.SubMenuName = model.SubMenuName;
-                subMenu.Description = model.Description;
-                subMenu.UpdatedAt = DateTime.Now;
+                    result = subServices.UpdateSubMenu(subMenu);
+                }
+                else
+                {
+                    SubMenu subMenu = new SubMenu();
 
-                var pictureIDs = model.SubMenuPictures
-                    .Split(new char[] { ',' }, StringSplitOptions.RemoveEmptyEntries)
-                    .Select(i=> int.Parse(i)).ToList();
+                    subMenu.MainMenuID = model.MainMenuID;
+                    subMenu.SubMenuName = model.SubMenuName;
+                    subMenu.Description = model.Description;
+                    subMenu.UpdatedAt = DateTime.Now;
 
-                subMenu.SubMenuPictures = new List<SubMenuPicture>();
+                    subMenu.SubMenuPictures = new List<SubMenuPicture>();
+                    subMenu.SubMenuPictures.AddRange(pictures.Select(x => new SubMenuPicture() { PictureID = x.PictureID }));
 
-                subMenu.SubMenuPictures.AddRange(pictureIDs.Select(x=> new SubMenuPicture() { PictureID = x}).ToList());
-
-                //foreach (var picID in pictureIDs)
-                //{
-                //    var subMenuPicture = new SubMenuPicture();
-
-                //    subMenuPicture.PictureID = picID;
-
-                //    subMenu.SubMenuPictures.Add(subMenuPicture);
-                //}
-
-
-                result = subServices.SaveSubMenu(subMenu);
-
+                    result = subServices.SaveSubMenu(subMenu);
+                }
             }
             if (result)
             {

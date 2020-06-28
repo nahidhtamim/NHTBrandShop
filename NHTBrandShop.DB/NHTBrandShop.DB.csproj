@@ -49,9 +49,9 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="BrandShopContext.cs" />
-    <Compile Include="Migrations\202006171815313_AddedEntities.cs" />
-    <Compile Include="Migrations\202006171815313_AddedEntities.Designer.cs">
-      <DependentUpon>202006171815313_AddedEntities.cs</DependentUpon>
+    <Compile Include="Migrations\202006282112043_AddedBasicEntities.cs" />
+    <Compile Include="Migrations\202006282112043_AddedBasicEntities.Designer.cs">
+      <DependentUpon>202006282112043_AddedBasicEntities.cs</DependentUpon>
     </Compile>
     <Compile Include="Migrations\Configuration.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
@@ -67,8 +67,8 @@
     </ProjectReference>
   </ItemGroup>
   <ItemGroup>
-    <EmbeddedResource Include="Migrations\202006171815313_AddedEntities.resx">
-      <DependentUpon>202006171815313_AddedEntities.cs</DependentUpon>
+    <EmbeddedResource Include="Migrations\202006282112043_AddedBasicEntities.resx">
+      <DependentUpon>202006282112043_AddedBasicEntities.cs</DependentUpon>
     </EmbeddedResource>
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />

@@ -47,14 +47,23 @@
                 </div>
                 <div class="form-group">
                     <label>Select Pictures</label>
-                    <input id="subMenuPictures" class="form-control" name="SubMenuPictures" type="file" multiple>
-                    <br />
-                    <div id="pictureArea"></div>
-                    <input type="hidden" name="SubMenuPictures" id="pictureIDs" />
+                    <input id="selectImages" type="file" class="form-control" name="Pictures" multiple>
+                    <div id="picturesArea">
+                        @if (Model.SubMenuPictures != null && Model.SubMenuPictures.Count() > 0)
+                        {
+                            foreach (var picture in Model.SubMenuPictures)
+                            {
+                                <img class="img-fluid" src='/images/@picture.Picture.Url' data-id='@picture.PictureID' 
+                                     style="width: 210px; height: 160px" onclick="removeMe(this)" />
+                            }
+                        }
+
+                    </div>
+                    <input type="hidden" name="pictureIDs" id="pictureIDs" />
                 </div>
             </form>
 
-            <div class="errorDiv">
+            <div class="errorDiv text-danger" style="display:none">
 
             </div>
 
@@ -66,60 +75,97 @@
     </div>
 
 }
+<div id="imageTemplate" class="clearfix d-none">
+    <img src="" class="img-fluid" style="width: 210px; height: 160px" onclick="removeMe(this)" />
+</div>
 
 
 <script>
-    $("#actionButton").click(function() {
-        $.ajax({
-            url: '@Url.Action("AddAndEdit", "SubMenu")',
-            type: 'post',
-            data: $("#actionForm").serialize(),
-        })
-        .done(function (response) {
-            if (response.Success)
-            {
-                location.reload();
+    $("#actionForm").validate({
+        rules: {
+            SubMenuName: {
+                required: true,
+                maxlength: 50
             }
-            else
-            {
-                $(".errorDiv").html(response.Message);
+        },
+        messages: {
+            SubMenuName: {
+                required: "Sub Menu Name is Required",
+                maxlength: "Maximum Length Should be 50 Characters"
             }
-        });
+        },
     });
 
-    $("#subMenuPictures").change(function() {
+
+    $("#actionButton").click(function () {
+
+        if ($("#actionForm").valid()) {
+            debugger; 
+            var pictureIDs = [];
+            $("#picturesArea img").each(function () {
+                var picID = $(this).attr("data-id");
+
+                pictureIDs.push(picID);
+            });
+
+            $("#pictureIDs").val(pictureIDs.join());
+            debugger; 
+
+            $.ajax({
+                url: '@Url.Action("AddAndEdit", "SubMenu")',
+                type: 'post',
+                data: $("#actionForm").serialize(),
+            })
+                .done(function (response) {
+                    if (response.Success) {
+                        location.reload();
+                    }
+                    else {
+                        $(".errorDiv").html(response.Message);
+                        $(".errorDiv").show();
+                    }
+                });
+        };
+    });
+
+    $("#selectImages").change(function() {
 
         var pictures = this.files;
 
-        var picsData = new FormData();
+        var formData = new FormData();
 
         for (var i = 0; i < pictures.length; i++) {
-            picsData.append("Picture", pictures[i]);
+            formData.append("Pictures", pictures[i]);
         }
 
         $.ajax({
             url: '@Url.Action("UploadPictures", "Shared")',
             type: 'post',
-            data: picsData,
+            data: formData,
             dataType: "json",
             processData: false,
             contentType: false
         })
-            .done(function (responses) {
+        .done(function (response) {
 
-                var picIDs = '';
+            for (var i = 0; i < response.length; i++) {
 
-                for (var i = 0; i < responses.length; i++) {
-                    var picResponse = responses[i];
+                var picResponse = response[i];
 
-                    var imgHtml = "<img class='img-fluid' src='/images/" + picResponse.pictureURL + "' />";
+                var $imgHtml = $("#imageTemplate").clone();
 
-                    $("#pictureArea").append(imgHtml);
+                $imgHtml.find("img").attr("src", "/images/" + picResponse.Url);
+                $imgHtml.find("img").attr("data-id", picResponse.PictureID);
 
-                    picIDs = picIDs + "," + picResponse.ID;
-                }
-                $("#pictureIDs").val(picIDs);
+                $("#picturesArea").append($imgHtml.html());
+
+            }
         });
     });
+
+    function removeMe(element) {
+        element.remove();
+    };
+
 </script>
 
